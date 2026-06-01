@@ -1,11 +1,11 @@
 //
-//  AppCornerRadius.swift
+//  AppConstants.swift
 //  RoutineLog
 //
 //  Created by Acoman on 1.06.2026.
 //
 
-import Foundation
+import SwiftUI
 
 enum AppSpacing {
     static let small: CGFloat = 8

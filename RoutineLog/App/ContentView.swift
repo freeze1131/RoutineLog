@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var selectedTab: TabIdentifier = .dashboard
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationStack{
+            NavigationStack {
                 DashboardView()
             }
             .tabItem {
@@ -27,21 +27,21 @@ struct ContentView: View {
             NavigationStack {
                 HistoryView()
             }
-            .tabItem{
+            .tabItem {
                 Label("History", systemImage: "clock.arrow.circlepath")
             }
             .tag(TabIdentifier.history)
-            NavigationStack{
+            NavigationStack {
                 StatisticsView()
             }
             .tabItem {
                 Label("Statistics", systemImage: "chart.bar")
             }
             .tag(TabIdentifier.statistics)
-            NavigationStack{
+            NavigationStack {
                 SettingsView()
             }
-            .tabItem{
+            .tabItem {
                 Label("Settings", systemImage: "gearshape")
             }
             .tag(TabIdentifier.settings)
