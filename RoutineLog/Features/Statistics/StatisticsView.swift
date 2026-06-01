@@ -9,7 +9,11 @@ import SwiftUI
 
 struct StatisticsView: View {
     var body: some View {
-        Text("Statistics view")
+        VStack {
+            Text("Statistics view")
+        }
+        .navigationTitle("Statistics")
+        
     }
 }
 
