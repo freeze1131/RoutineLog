@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
-
+import SwiftData
 
 @main
 struct RoutineLogApp: App {
     
-
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }
+        } .modelContainer(for: [
+            TrackerModel.self,
+            TrackerEntryModel.self
+        ])
         
     }
 }

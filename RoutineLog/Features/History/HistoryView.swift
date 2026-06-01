@@ -6,21 +6,39 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HistoryView: View {
+    @Query private var entries: [TrackerEntryModel]
+    
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.medium) {
-            Text("No history yet")
-                .font(.headline)
+        
+        if entries.isEmpty {
+            VStack(alignment: .leading, spacing: AppSpacing.medium) {
+                Text("No history yet")
+                    .font(.headline)
 
-            Text("Your history will appear here.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                Text("Your history will appear here.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .padding()
+            .background(.secondary.opacity(0.12))
+            .clipShape(RoundedRectangle(cornerRadius: AppCornerRadius.medium))
+            .navigationTitle("History")
         }
-        .padding()
-        .background(.secondary.opacity(0.12))
-        .clipShape(RoundedRectangle(cornerRadius: AppCornerRadius.medium))
-        .navigationTitle("History")
+        
+        ForEach (entries) { value in
+            VStack(alignment: .leading, spacing: AppSpacing.medium) {
+                Text(value.note)
+                Text("\(value.value)")
+                Text("\(value.createdAt)")
+            }
+            .navigationTitle("History")
+        }
+        
+
     }
 }
 
