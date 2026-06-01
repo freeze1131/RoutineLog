@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: AppConstants.medium) {
+        VStack(alignment: .leading, spacing: AppSpacing.medium) {
             Text("No routines yet")
                 .font(.headline)
 
@@ -19,7 +19,7 @@ struct DashboardView: View {
         }
         .padding()
         .background(.secondary.opacity(0.12))
-        .clipShape(RoundedRectangle(cornerRadius: AppConstants.medium))
+        .clipShape(RoundedRectangle(cornerRadius: AppCornerRadius.medium))
         .navigationTitle("Today")
     }
 }

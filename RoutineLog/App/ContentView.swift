@@ -23,31 +23,28 @@ struct ContentView: View {
             .tabItem {
                 Label("Today", systemImage: "house")
             }
-            .tag(TabIdentifier.dashboard) // dashboard tab
-            
+            .tag(TabIdentifier.dashboard)
             NavigationStack {
                 HistoryView()
             }
             .tabItem{
                 Label("History", systemImage: "clock.arrow.circlepath")
             }
-            .tag(TabIdentifier.history)// history tab
-            
+            .tag(TabIdentifier.history)
             NavigationStack{
                 StatisticsView()
             }
             .tabItem {
                 Label("Statistics", systemImage: "chart.bar")
             }
-            .tag(TabIdentifier.statistics) // statistics tab
-            
+            .tag(TabIdentifier.statistics)
             NavigationStack{
                 SettingsView()
             }
             .tabItem{
                 Label("Settings", systemImage: "gearshape")
             }
-            .tag(TabIdentifier.settings) // settings tab
+            .tag(TabIdentifier.settings)
         }
     }
 }

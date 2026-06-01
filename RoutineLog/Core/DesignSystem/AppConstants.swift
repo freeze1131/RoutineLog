@@ -7,8 +7,15 @@
 
 import Foundation
 
-enum AppConstants {
-    static let small: CGFloat = 6
-    static let medium: CGFloat = 10
-    static let large: CGFloat = 16
+enum AppSpacing {
+    static let small: CGFloat = 8
+    static let medium: CGFloat = 16
+    static let large: CGFloat = 24
+}
+
+
+enum AppCornerRadius {
+    static let  small: CGFloat = 8.0
+    static let  medium: CGFloat = 12.0
+    static let  large: CGFloat = 16.0
 }
