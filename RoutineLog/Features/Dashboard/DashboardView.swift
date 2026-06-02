@@ -37,7 +37,22 @@ struct DashboardView: View {
                         isShowingAddTracker = true
                     }
                 } else {
-                    TrackerGridView(trackers: trackers, entries: entries)
+                    ForEach(trackers, id: \.id) { tracker in
+                        let latestEntry = latestEntry(for: tracker)
+
+                        TrackerCardView(
+                            trackerLabel: tracker.label,
+                            trackerUnit: tracker.unit,
+                            latestEntryValue: latestEntry?.value,
+                            lastUpdated: latestEntry?.createdAt,
+                            addValue: {
+                                addValue(to: tracker)
+                            },
+                            deleteTracker: {
+                                deleteTracker(tracker)
+                            }
+                        )
+                    }
                 }
             }
             .sheet(isPresented: $isShowingAddTracker) {
@@ -59,6 +74,23 @@ struct DashboardView: View {
             }
         }
     }
+    
+    private func latestEntry(for tracker: TrackerModel) -> TrackerEntryModel? {
+        entries
+            .filter { $0.trackerId == tracker.id }
+            .sorted { $0.createdAt > $1.createdAt }
+            .first
+    }
+
+    private func addValue(to tracker: TrackerModel) {
+        
+        
+    }
+    
+    private func deleteTracker(_ tracker: TrackerModel) {
+        
+    }
+    
 }
 
 
