@@ -29,16 +29,18 @@ struct HistoryView: View {
             .navigationTitle("History")
         }
         
-        ForEach (entries) { value in
-            VStack(alignment: .leading, spacing: AppSpacing.medium) {
-                Text(value.note)
-                Text("\(value.value)")
-                Text("\(value.createdAt)")
+        ScrollView {
+            ForEach (entries, id: \.id) { value in
+                VStack(alignment: .leading, spacing: AppSpacing.medium) {
+                    Text(value.note)
+                    Text("\(value.value)")
+                    Text("\(value.createdAt)")
+                }
+                .navigationTitle("History")
             }
-            .navigationTitle("History")
         }
         
-
+        
     }
 }
 

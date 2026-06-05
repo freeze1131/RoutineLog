@@ -16,7 +16,7 @@ struct DashboardView: View {
     @Query private var entries: [TrackerEntryModel]
     
     // Sheets and Alert control vars
-    @State private var showAlert = false
+    @State private var showDeleteTrackerAlert = false
     @State private var isShowingAddTracker = false
     @State private var isShowingAddValue: Bool = false
     @State private var selectedTracker: TrackerModel?
@@ -75,11 +75,11 @@ struct DashboardView: View {
                 AddValueSheetView(value: $value, note: $note) {
                     if let selectedTracker {
                         modelContext.insert(
-                            TrackerEntryModel(id: selectedTracker.id,
-                            trackerId: selectedTracker.id,
-                            value: value,
-                            createdAt: Date.now,
-                            note: note))
+                            TrackerEntryModel(id: UUID(),
+                                              trackerId: selectedTracker.id,
+                                              value: value,
+                                              createdAt: Date.now,
+                                              note: note))
                         value = 0
                         note = ""
                         isShowingAddValue = false
@@ -87,6 +87,17 @@ struct DashboardView: View {
                     
                 }
             }
+            .alert("Delete Tracker", isPresented: $showDeleteTrackerAlert) {
+                Button("Delete", role: .destructive){
+                    if let selectedTracker {
+                        modelContext.delete(selectedTracker)
+                    }
+                }
+                Button("Cancel", role: .cancel){}
+            } message: {
+                Text("This tracker is going to be destroyed and cannot be restrored. Are you sure?")
+            }
+            
         }
         .padding()
         Spacer()
@@ -110,7 +121,8 @@ struct DashboardView: View {
     }
     
     private func deleteTracker(_ tracker: TrackerModel) {
-        
+        selectedTracker = tracker
+        showDeleteTrackerAlert = true
     }
     
 }
