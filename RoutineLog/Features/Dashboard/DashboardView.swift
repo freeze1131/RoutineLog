@@ -19,10 +19,15 @@ struct DashboardView: View {
     @State private var showAlert = false
     @State private var isShowingAddTracker = false
     @State private var isShowingAddValue: Bool = false
-
+    @State private var selectedTracker: TrackerModel?
+    
     // Tracker Values
     @State private var label = ""
     @State private var unit = ""
+    
+    // Entry Values
+    @State private var value: Double = 0
+    @State private var note: String = ""
     
     let columns = [
         GridItem(.flexible()),
@@ -39,12 +44,13 @@ struct DashboardView: View {
                 } else {
                     ForEach(trackers, id: \.id) { tracker in
                         let latestEntry = latestEntry(for: tracker)
-
+                        
                         TrackerCardView(
                             trackerLabel: tracker.label,
                             trackerUnit: tracker.unit,
                             latestEntryValue: latestEntry?.value,
                             lastUpdated: latestEntry?.createdAt,
+                            note: latestEntry?.note,
                             addValue: {
                                 addValue(to: tracker)
                             },
@@ -65,6 +71,22 @@ struct DashboardView: View {
             }
             .padding()
             .navigationTitle("Today")
+            .sheet(isPresented: $isShowingAddValue) {
+                AddValueSheetView(value: $value, note: $note) {
+                    if let selectedTracker {
+                        modelContext.insert(
+                            TrackerEntryModel(id: selectedTracker.id,
+                            trackerId: selectedTracker.id,
+                            value: value,
+                            createdAt: Date.now,
+                            note: note))
+                        value = 0
+                        note = ""
+                        isShowingAddValue = false
+                    }
+                    
+                }
+            }
         }
         .padding()
         Spacer()
@@ -81,10 +103,10 @@ struct DashboardView: View {
             .sorted { $0.createdAt > $1.createdAt }
             .first
     }
-
+    
     private func addValue(to tracker: TrackerModel) {
-        
-        
+        selectedTracker = tracker
+        isShowingAddValue = true
     }
     
     private func deleteTracker(_ tracker: TrackerModel) {
